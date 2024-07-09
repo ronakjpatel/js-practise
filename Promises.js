@@ -19,10 +19,14 @@ promiseOne
   .then(function (userData) {
     console.log("Promise is successfully resolved");
     console.log("Fetched Data info Username is " + userData.user);
-    return userData.laptops, userData.user;
+    return userData;
   })
   .finally(() => console.log("Final cleaning up.."))
-  .then((laptopsInfo, uname) => {
-    let length = laptopsInfo.length;
-    console.log(`${uname} is having ${length} laptops`);
-  });
+  .then((udata) => {
+    let length = udata.laptops.length;
+    console.log(`${udata.user} is having ${length} laptops`);
+    return [udata.user, length];
+  })
+  .then(([udata, length]) =>
+    console.log(`This is too manay count ${length} for the user ${udata}`)
+  ).finally(()=>{console.log("Final CleanUP !!");});
